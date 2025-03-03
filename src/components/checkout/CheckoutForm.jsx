@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaLock, FaCreditCard, FaPaypal } from 'react-icons/fa';
+import DeliverySchedule from './DeliverySchedule';
 
 export default function CheckoutForm() {
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -10,14 +11,16 @@ export default function CheckoutForm() {
     address: '',
     cardNumber: '',
     expiry: '',
-    cvv: ''
+    cvv: '',
+    deliveryTime: ''
   });
 
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDeliverySchedule = (time) => {
+    setFormData({ ...formData, deliveryTime: time });
   };
 
   const handleSubmit = (e) => {
@@ -74,6 +77,8 @@ export default function CheckoutForm() {
               />
             </div>
           </div>
+
+          <DeliverySchedule onScheduleSelect={handleDeliverySchedule} />
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Payment Method</h3>
